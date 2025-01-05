@@ -1,12 +1,12 @@
-import React, { useState,useEffect } from "react";
+import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { IoCalendarNumberOutline } from "react-icons/io5";
+// import { IoCalendarNumberOutline } from "react-icons/io5";
 import Cookies from "js-cookie";
 import axios from "axios";
 const TaskModal = ({ onClose  ,teamData , AllTask}) => {
   const baseurl = process.env.REACT_APP_BASE_URL
-  const [error, setError] = useState(null);
+  // const [error, setError] = useState(null);
   const [formData, setFormData] = useState({
     title: "",
     description: "",

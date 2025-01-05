@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 const Sidebar = () => {
   let userinfo = localStorage.getItem("userInfo")
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 let userobj = JSON.parse(userinfo);
 let Role = userobj.roles[0]
 const handlelogout = ()=>{

@@ -10,10 +10,10 @@ import TaskDetailsModal from "../Component/TaskDetailsModal";
 const Task = () => {
   const baseurl = process.env.REACT_APP_BASE_URL
   const [tasks, setTask] = useState(null);
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
-  const [error, setError] = useState(null);
+  // const [error, setError] = useState(null);
   const [currentTask, setCurrentTask] = useState(null);
   const [teamData, setTeamData] = useState([]);
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
@@ -38,10 +38,8 @@ const Task = () => {
       setTask(data.tasks);
     } catch (err) {
       console.error("Error fetching team data:", err);
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
+      
+    } 
   };
 
  const team  = async ()=>{
@@ -59,7 +57,7 @@ const Task = () => {
     setTeamData(data.members);
   } catch (err) {
     console.error("Error fetching team data:", err);
-    setError(err.message);
+    // setError(err.message);
   }
 }
 
