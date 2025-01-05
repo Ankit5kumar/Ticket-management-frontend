@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 const LoginPage = () => {
   const baseurl = process.env.REACT_APP_BASE_URL
   const navigate = useNavigate();
-  const [isLogin, setIsLogin] = useState(true); // State to toggle between login and register forms
+  const [isLogin, setIsLogin] = useState(true); 
   const [form, setForm] = useState({ username: '', email: '', password: '' });
 
   const handleChange = (e) => {
