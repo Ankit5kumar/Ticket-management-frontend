@@ -63,13 +63,13 @@ const Task = () => {
 
 useEffect(() => {
   team();
-}, []);
+});
 
 
 
   useEffect(() => {
     fetchtaskData();
-  }, []);
+  } );
 
   const handleEdit = (task)=>{
     setCurrentTask(task);

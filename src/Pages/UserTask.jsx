@@ -27,7 +27,7 @@ const UserTask = () => {
 
   useEffect(() => {
     fetchTasks();
-  }, []);
+  });
 
 
 
