@@ -17,7 +17,7 @@ const Task = () => {
   const [currentTask, setCurrentTask] = useState(null);
   const [teamData, setTeamData] = useState([]);
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
-  const token = Cookies.get("token");
+  const token = Cookies.get("token");    
   const fetchtaskData = async () => {
     try {
       const response = await fetch(
