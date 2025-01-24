@@ -59,7 +59,7 @@ const Task = () => {
     console.error("Error fetching team data:", err);
  
   }
-},[baseurl,token])
+},[baseurl]);
 
 useEffect(() => {
   team();
