@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Cookies from "js-cookie";
 
 const Team = () => {
-  const baseurl = process.env.REACT_APP_BASE_URL
+  const baseurl = process.env.REACT_APP_BASE_URL;
   const [teamData, setTeamData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const fetchteamData = async () => {
+  const fetchteamData = useCallback(async () => {
     try {
-       const token = Cookies.get("token");
+      const token = Cookies.get("token");
 
       const response = await fetch(`${baseurl}/api/Team`, {
         method: "GET",
@@ -30,13 +30,15 @@ const Team = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [baseurl]);
+
   useEffect(() => {
     fetchteamData();
-  });
-  
+  }, [fetchteamData]);
+
   if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error:{error}</div>;
+  if (error) return <div>Error: {error}</div>;
+
   return (
     <>
       <div>
@@ -55,11 +57,11 @@ const Team = () => {
             <tbody>
               {teamData.map((member) => (
                 <tr key={member._id}>
-                  <td className="border border-gray-300 p-2 ">{member.username}</td>
+                  <td className="border border-gray-300 p-2">{member.username}</td>
                   <td className="border border-gray-300 p-2">{member.email}</td>
-                  <td className="border border-gray-300 p-2">{member.name}</td> 
-                  <td className="border border-gray-300 p-2">{member.mobile}</td> 
-                  {/* <td className="border border-gray-300 p-2">{member.address}</td>  */}
+                  <td className="border border-gray-300 p-2">{member.name}</td>
+                  <td className="border border-gray-300 p-2">{member.mobile}</td>
+                  {/* <td className="border border-gray-300 p-2">{member.address}</td> */}
                 </tr>
               ))}
             </tbody>
@@ -67,7 +69,7 @@ const Team = () => {
         )}
       </div>
     </>
-);
+  );
 };
 
 export default Team;
