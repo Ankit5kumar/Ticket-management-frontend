@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { CiEdit } from "react-icons/ci";
 import { MdDelete } from "react-icons/md";
@@ -10,15 +10,15 @@ import TaskDetailsModal from "../Component/TaskDetailsModal";
 const Task = () => {
   const baseurl = process.env.REACT_APP_BASE_URL
   const [tasks, setTask] = useState(null);
-  // const [loading, setLoading] = useState(true);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
-  // const [error, setError] = useState(null);
+
   const [currentTask, setCurrentTask] = useState(null);
   const [teamData, setTeamData] = useState([]);
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
   const token = Cookies.get("token");    
-  const fetchtaskData = async () => {
+  const fetchtaskData = useCallback(async () => {
     try {
       const response = await fetch(
         `${baseurl}/api/tasks/ManagerTask`,
@@ -40,9 +40,9 @@ const Task = () => {
       console.error("Error fetching team data:", err);
       
     } 
-  };
+  } , [baseurl,token]);
 
- const team  = async ()=>{
+ const team  = useCallback(async ()=>{
   try {
     const token = Cookies.get("token");
 
@@ -57,19 +57,19 @@ const Task = () => {
     setTeamData(data.members);
   } catch (err) {
     console.error("Error fetching team data:", err);
-    // setError(err.message);
+ 
   }
-}
+},[baseurl,token])
 
 useEffect(() => {
   team();
-});
+},[team]);
 
 
 
   useEffect(() => {
     fetchtaskData();
-  } );
+  },[fetchtaskData] );
 
   const handleEdit = (task)=>{
     setCurrentTask(task);
