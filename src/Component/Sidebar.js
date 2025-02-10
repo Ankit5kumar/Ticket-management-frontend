@@ -3,10 +3,12 @@ import { Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
 // import { useNavigate } from 'react-router-dom';
 const Sidebar = () => {
-  let userinfo = localStorage.getItem("userInfo")
-  // const navigate = useNavigate();
+  let userinfo = localStorage.getItem("userInfo");
+  console.log("userinfo",userinfo)
 let userobj = JSON.parse(userinfo);
+console.log("userobj",userobj)
 let Role = userobj.roles[0]
+console.log("Role",Role)
 const handlelogout = ()=>{
   Cookies.remove("token");
 }

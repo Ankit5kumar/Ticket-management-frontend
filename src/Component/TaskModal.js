@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-// import { IoCalendarNumberOutline } from "react-icons/io5";
+import { IoCalendarNumberOutline } from "react-icons/io5";
 import Cookies from "js-cookie";
 import axios from "axios";
 const TaskModal = ({ onClose  ,teamData , AllTask}) => {
@@ -127,7 +127,7 @@ const TaskModal = ({ onClose  ,teamData , AllTask}) => {
                   <option value="">
 select the member
                   </option>
-               {teamData.map((mem)=>(
+               {teamData && teamData.map((mem)=>(
                 <option key={mem._id} value={mem._id}>{mem.username}</option>
                ))}
 

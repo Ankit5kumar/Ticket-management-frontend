@@ -1,9 +1,13 @@
 import React, { useEffect, useState, useCallback } from "react";
 import Cookies from "js-cookie";
-
+import { io } from "socket.io-client"; 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+const socket = io('http://localhost:3004'); 
 const UserTask = () => {
   const [tasks, setTasks] = useState([]);
   const baseurl = process.env.REACT_APP_BASE_URL;
+
 
   const fetchTasks = useCallback(async () => {
     try {
@@ -19,6 +23,7 @@ const UserTask = () => {
         throw new Error("Network response was not ok");
       }
       const data = await response.json();
+      console.log("data");
       setTasks(data.tasks);
     } catch (error) {
       console.log("Error fetching tasks:", error);
@@ -28,6 +33,10 @@ const UserTask = () => {
   useEffect(() => {
     fetchTasks();
   }, [fetchTasks]);
+
+ 
+
+ 
 
   const handleUpdateTask = async (taskId, newStatus, newDueDate) => {
     try {
@@ -47,12 +56,38 @@ const UserTask = () => {
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
-      console.log("response", response);
+      
       fetchTasks();
     } catch (error) {
       console.log("Error updating task:", error);
     }
   };
+
+   useEffect(() => {
+      socket.on('taskAssigned', (task) => {
+        setTasks((prevTasks) => [...prevTasks, task]);
+       fetchTasks();
+        // toast.success(`Task "${task.title}" created!`);
+      });
+  
+      socket.on('taskUpdated', (updatedTask) => {
+        setTasks((prevTasks) =>
+          prevTasks.map((task) => (task._id === updatedTask._id ? updatedTask : task))
+        );
+        toast.success(`Task "${updatedTask.title}" updated!`);
+      });
+  
+      socket.on('taskDeleted', (taskId) => {
+        setTasks((prevTasks) => prevTasks.filter((task) => task._id !== taskId));
+      });
+      fetchTasks();
+  
+      return () => {
+        socket.off('taskCreated');
+        socket.off('taskUpdated');
+        socket.off('taskDeleted');
+      };
+    }, []);
 
   return (
     <div className="bg-gray-100 h-screen p-6">

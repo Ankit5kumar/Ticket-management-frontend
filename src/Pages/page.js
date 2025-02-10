@@ -2,7 +2,8 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const LoginPage = () => {
   const baseurl = process.env.REACT_APP_BASE_URL
   const navigate = useNavigate();
@@ -21,10 +22,11 @@ const LoginPage = () => {
     // Handle form submission here
     try {
         const response = await axios.post(`${baseurl}/api/auth/login`, form);
-    
-    //  localStorage.setItem("token",JSON.stringify(response.data.access_token))
+   
+ 
      Cookies.set("token",response.data.access_token ,{expires:1})
      localStorage.setItem("userInfo",JSON.stringify(response.data.user))
+   
         if (response.status === 200) {
           
           navigate('/dashboard');
@@ -34,14 +36,38 @@ const LoginPage = () => {
         // You can display an error message to the user here
       }
   };
+  const handleRegister = async(e) => {
+    e.preventDefault();
+    // Handle form submission here
+    try {
+        const response = await axios.post(`${baseurl}/api/auth/register`, form);
+   
+ 
+     Cookies.set("token",response.data.access_token ,{expires:1})
+     localStorage.setItem("userInfo",JSON.stringify(response.data.user))
+   
+        if (response.status === 201) {
+                       setIsLogin(true);  
+                       toast.success("User registered successfully"); 
+        }
+      } catch (error) {
+        if (error.response && error.response.status === 400) {
+          toast.success("Given email or username already exists. Please try a different one."); 
+        }
+        console.error("Login failed:", error);
+        // You can display an error message to the user here
+      }
+  };
 
   return (
+    <>
+    <ToastContainer />
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="w-full max-w-md p-8 space-y-4 bg-white rounded-lg shadow-lg">
         <h2 className="text-2xl font-bold text-center text-gray-700">
           {isLogin ? 'Login' : 'Register'}
         </h2>
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={isLogin ? handleSubmit : handleRegister} className="space-y-4">
           {!isLogin && (
             <div>
               <label className="block text-sm font-medium text-gray-600" >Username</label>
@@ -99,6 +125,7 @@ const LoginPage = () => {
         </p>
       </div>
     </div>
+    </>
   );
 };
 

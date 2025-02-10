@@ -18,13 +18,16 @@ const Team = () => {
           Authorization: `Bearer ${token}`,
         },
       });
+      
       if (!response.ok) {
-        throw new Error("Network response was not ok");
+return <div>no member added yet in the team</div>;
+        // throw new Error("Network response was not ok");
       }
-
+       
       const data = await response.json();
       setTeamData(data.members);
     } catch (err) {
+      
       console.error("Error fetching team data:", err);
       setError(err.message);
     } finally {
@@ -38,12 +41,12 @@ const Team = () => {
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
-
+console.log(teamData)
   return (
     <>
       <div>
         <h1>Members</h1>
-        {teamData && (
+        {teamData && teamData.length > 0 ? (
           <table className="min-w-full border-collapse border border-gray-300">
             <thead>
               <tr className="bg-gray-200">
@@ -66,10 +69,15 @@ const Team = () => {
               ))}
             </tbody>
           </table>
-        )}
-      </div>
-    </>
-  );
-};
+        )
+        : (
+            <div>Currently no members added into the Team</div>
+          )}
+        </div>
+      </>
+    );
+  };
+      
+      
 
 export default Team;
