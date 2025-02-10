@@ -11,7 +11,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import TaskDetailsModal from "../Component/TaskDetailsModal";
 import { io } from "socket.io-client"; 
 
-const socket = io('http://localhost:3004'); 
+// const socket = io('http://localhost:3004'); 
+const socket = io('https://tms-backend-h9a0.onrender.com/'); 
 
 const Task = () => {
   const baseurl = process.env.REACT_APP_BASE_URL;

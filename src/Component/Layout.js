@@ -5,7 +5,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import Sidebar from './Sidebar';
 import { Outlet } from 'react-router-dom';
 import NotificationBell from './NotificationBell';
-const socket = io('http://localhost:3004');
+// const socket = io('http://localhost:3004');
+const socket = io('https://tms-backend-h9a0.onrender.com/');
 const Layout = () => {
   const [notifications, setNotifications] = useState([]);
   useEffect(()=>{

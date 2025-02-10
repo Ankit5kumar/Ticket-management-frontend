@@ -3,7 +3,8 @@ import Cookies from "js-cookie";
 import { io } from "socket.io-client"; 
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-const socket = io('http://localhost:3004'); 
+// const socket = io('http://localhost:3004'); 
+const socket = io('https://tms-backend-h9a0.onrender.com/'); 
 const UserTask = () => {
   const [tasks, setTasks] = useState([]);
   const baseurl = process.env.REACT_APP_BASE_URL;

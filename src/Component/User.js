@@ -6,7 +6,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import 'react-toastify/dist/ReactToastify.css';
 
 
-const socket = io('http://localhost:3004'); // Adjust the URL as needed
+const socket = io('https://tms-backend-h9a0.onrender.com/'); // Adjust the URL as needed
+// const socket = io('http://localhost:3004'); 
 
 const UserPanel = () => {
   const [notifications, setNotifications] = useState([]);
