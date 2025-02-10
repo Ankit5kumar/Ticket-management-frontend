@@ -87,7 +87,7 @@ const UserTask = () => {
         socket.off('taskUpdated');
         socket.off('taskDeleted');
       };
-    }, []);
+    });
 
   return (
     <div className="bg-gray-100 h-screen p-6">
