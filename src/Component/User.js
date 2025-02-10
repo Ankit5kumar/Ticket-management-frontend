@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { io } from 'socket.io-client';
-import { ToastContainer, toast } from 'react-toastify';
+
 import 'react-toastify/dist/ReactToastify.css';
-import NotificationBell from './NotificationBell';
+
 
 const socket = io('http://localhost:3004'); // Adjust the URL as needed
 

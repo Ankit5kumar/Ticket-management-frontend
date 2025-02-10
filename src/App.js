@@ -12,14 +12,14 @@ import ProtectedRoute from "./Component/ProtectedRoute";
 import LoginProtectedRoute from "./Component/LoginProtectRoute";
 import UserTask from "./Pages/UserTask";
 import Profile from "./Pages/Profile";
-import { ToastContainer, toast } from 'react-toastify';
+
 
 
 
 function App() {
   return (
     <>
-    <ToastContainer />
+    
       <BrowserRouter>
         <Routes>
           <Route
