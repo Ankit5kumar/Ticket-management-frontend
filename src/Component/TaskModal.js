@@ -6,7 +6,7 @@ import Cookies from "js-cookie";
 import axios from "axios";
 const TaskModal = ({ onClose  ,teamData , AllTask}) => {
   const baseurl = process.env.REACT_APP_BASE_URL
-  // const [error, setError] = useState(null);
+  // const [startDate, setStartDate] = useState(new Date());
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -16,7 +16,9 @@ const TaskModal = ({ onClose  ,teamData , AllTask}) => {
     assignedTo:""
   });
 
+
   const handleChange = (e) => {
+    console.log("formdata",formData)
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
@@ -24,6 +26,7 @@ const TaskModal = ({ onClose  ,teamData , AllTask}) => {
  
   
   const handleDateChange = (date) => {
+    
     setFormData({ ...formData, dueDate: date });
   };
  
@@ -53,6 +56,7 @@ const TaskModal = ({ onClose  ,teamData , AllTask}) => {
       <div className="bg-black/40 h-screen w-screen top-0 left-0 fixed backdrop-blur-[3px]">
         <div className="bg-gray-400 w-1/3 rounded-md shadow-2xl flex justify-center absolute items-center p-2 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
           <div className="modal w-full p-4">
+            
             <form onSubmit={handleSubmit} className="space-y-4">
               <h2 className="text-2xl font-semibold text-white">Create New Task</h2>
               <div>
@@ -106,9 +110,11 @@ const TaskModal = ({ onClose  ,teamData , AllTask}) => {
                 <label className="block mb-1 text-white">Due Date</label>
                 <div className="flex">
                 <DatePicker
+                showIcon
+                  // selected={formData.dueDate}
                   selected={formData.dueDate}
                   onChange={handleDateChange}
-                  dateFormat="YYYY/MM/DD" 
+                  dateFormat="dd/MM/yyyy" 
                   className="border border-gray-300 p-2 w-full"
                 />
                 {/* <IoCalendarNumberOutline size={20} /> */}

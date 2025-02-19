@@ -25,6 +25,7 @@ const Task = () => {
   const token = Cookies.get("token");
 
   const fetchtaskData = useCallback(async () => {
+
     try {
       const response = await fetch(
         `${baseurl}/api/tasks/ManagerTask`,
@@ -125,6 +126,7 @@ const Task = () => {
   };
 
   const closetaskCreationmodal = () => {
+    console.log("edhyeuihe3", teamData)
     setIsTaskModalOpen(false);
   };
 
